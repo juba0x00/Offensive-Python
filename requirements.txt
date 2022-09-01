@@ -1,0 +1,3 @@
+xorCryptPy
+argparse
+pyperclip

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.10
 import hashlib
 import argparse
 from pyperclip import copy
