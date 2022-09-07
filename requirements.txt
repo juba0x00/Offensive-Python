@@ -1,3 +1,5 @@
 xorCryptPy
 argparse
 pyperclip
+pynput
+requests
