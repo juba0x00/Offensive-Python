@@ -3,9 +3,10 @@
 import argparse
 import logging
 from pyperclip import copy
+from typed_argparse import TypedArgs
 
 
-def parse_arguments():
+def parse_arguments() -> TypedArgs:
     parser = argparse.ArgumentParser(description="xorCrypt")
     parser.add_argument("text", type=argparse.FileType("r"), help="plain text file ")
     parser.add_argument("key", type=argparse.FileType("r"), help="key file")
@@ -13,7 +14,7 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def xorcrypt(plain_text, key):
+def xorcrypt(plain_text: str, key: str) -> str:
     result = ""
     if len(plain_text) != len(key):
         logging.error('text and key must be the same length')

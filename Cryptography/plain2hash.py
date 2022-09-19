@@ -1,12 +1,11 @@
 #!/usr/bin/env python3.10
 import hashlib
-import argparse
+from argparse import ArgumentParser
 from pyperclip import copy
-
 from platform import python_version
 
 
-def get_hash (text, hashing_algo):
+def get_hash(text: str, hashing_algo: str) -> str:
     encoder = bytes(text, 'utf-8')
     hashing_result = ''
     match(hashing_algo.lower()):
@@ -38,7 +37,7 @@ if __name__ == '__main__':
         print('Python 10 required')
         exit(0)
 
-    parser = argparse.ArgumentParser(description='Convert plain text to hash')
+    parser = ArgumentParser(description='Convert plain text to hash')
     parser.add_argument('text', help='plain text')
     parser.add_argument('hash_algorithm', help='hashing algorithm')
     parser.add_argument('-c', '--clip', action='store_true', help='copy to clipboard')

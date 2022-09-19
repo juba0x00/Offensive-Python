@@ -3,3 +3,5 @@ argparse
 pyperclip
 pynput
 requests
+typing
+typed_argparse

