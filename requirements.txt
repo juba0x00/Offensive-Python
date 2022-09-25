@@ -5,3 +5,6 @@ pynput
 requests
 typing
 typed_argparse
+socket
+struct
+binascii
