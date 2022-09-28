@@ -3,3 +3,4 @@ test*.py
 .mypy_cache/
 .pytest_cache/
 .vscode/
+Py4CyberSec_venv
