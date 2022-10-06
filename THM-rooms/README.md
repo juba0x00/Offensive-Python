@@ -27,6 +27,7 @@
 ### Keylogger
 
 - [Keylogger link](Python-For-Pentesters/Keylogger.py)
+- [A better keylogger](../Keylogger/keylogger.py)
 
 ### SSH Brute Forcing
 
