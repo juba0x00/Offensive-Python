@@ -1,11 +1,8 @@
 [Reference](https://youtu.be/qUeud6DvOWI)
 
-# Arguments Defaults
-
-Arguments Defaults is defined when the function is defined not **called**
-
+# Arguments Defaults 
+Arguments Defaults is defined when the function is defined not **called** 
 ## Bad Code
-
 ```py
 def bad_append(n, l=[]):
     l.append(n)
@@ -15,9 +12,7 @@ def bad_append(n, l=[]):
 l1 = bad_append(0) # [0]
 l2 = bad_append(1) # [0, 1] oops 
 ```
-
 ## Professional Code
-
 ```python
 def append(n, l=None):
     if l is None:
@@ -25,40 +20,31 @@ def append(n, l=None):
     l.append(n)
     return l 
 
-l1 = bad_append(0) # [0]
-l2 = bad_append(1) # [1]
+l1 = append(0) # [0]
+l2 = append(1) # [1]
 ```
   
 ---
-
-# manually calling close on a file
-
+# manually calling close on a file 
 ## Bad Code
-
-```python
+```python 
 def write_to_file(filename, content):
     f = open(filename, 'w')
     f.write(content)
     f.close()
 ```
-
    **if this `f.write()`call throws an exception, the file will never be closed**
-
-## Professional Code
-
+## Professional Code 
 ```python
 
 def write_to_file(filename, content):
     with open(filename) as f:
         f.write(content)
 ```
-
 ---
 
-# Using a bare except
-
-## Bad Code
-
+# Using a bare except 
+## Bad Code 
 ```python
 def bare_except():
     while True:
@@ -70,11 +56,8 @@ def bare_except():
             print('Not a number, try again')
 
 ```
-
   bare except will catch CTRL+C
-
-## Professional Code
-
+## Professional Code 
 ```python
 def bare_except():
     while True:
@@ -87,43 +70,57 @@ def bare_except():
 ```
   
 ---
-
 # Caret and exponentiation
-
 ```python
 y = x ^ p # bitwise XOR
 y = x ** p # Exponentiation
 ```
-
 ---
-
 # Comprehensions
-
-## Bad Code
-
+## Bad Code 
 ```python
 def never_using_comprehensions():
     squares = {}
     for i in range(10):
         squares[i] = i * i 
 ```
-
-## Professional Code
-
+## Professional Code 
 ```python
 def using_comprehensions():
     dict_comp = {i: i * i for i in range(10)}
     list_comp = [i * i for i in range(10)]
     set_comp = {i * i for i in range(10)}
     gen_comp = (i * i for i in range(10))
+    
+    print(dict_comp)
+    print(list_comp)
+    print(set_comp)
+    print(gen_comp)
+    
+    for i in gen_comp:
+        print(i)
+
+
+####
+# {0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81}
+# [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+# {0, 1, 64, 4, 36, 9, 16, 49, 81, 25}
+# <generator object <genexpr> at 0x7f8c30cc0270>
+# 0
+# 1
+# 4
+# 9
+# 16
+# 25
+# 36
+# 49
+# 64
+# 81
+####
 ```
-
 ---
-
 # Checking Type Equality
-
-- noog code use `==`
-
+- noob code use `==`
 ```python
 def checking_type_equality():
     chlid_obj = child_class(1, 2)
@@ -134,9 +131,7 @@ def checking_type_equality():
         print('not a child')
 
 ```
-
 ## Professional Code use `isinstance()`
-
 ```python
 def checking_type_equality():
     chlid_obj = child_class(1, 2)
@@ -146,14 +141,11 @@ def checking_type_equality():
     else: 
         print('not a child')
 
-```
+``` 
 
 ---
-
-# Checking Non, True or False
-
+# Checking Non, True or False 
 ## Bad Code  use `==`
-
 ```python
 if x == None:
     print('none')
@@ -164,7 +156,6 @@ if x == True:
 if x == False:
     print('False')
 ```
-
 ## Professional Code use `is`
 
 ```python
@@ -177,15 +168,11 @@ if x is True:
 if x is False:
     print('False')
 ```
-
 - checks identity not equality
-
 ---
 
 # using `if bool()` or `if len(x)`
-
 ## Bad Code  
-
 ```python
 if bool(x):
     return "it's boolean"
@@ -193,33 +180,28 @@ if len(y) != 0:
     return "not empty"
 ```
   
-## Professional Code
-
+## Professional Code 
 ```python
 if x:
     return "it's boolean"
  if y:
     return "not empty"
 ```
-
 - the same result but using `if bool()` or `if len()` just shows that you don't know the language that well
-
 ---
 
 # Type Hints & Annotations
-
 ```python
 x: int = 1 
 x: list[int] = []
 x = list[int]()
 ```
-
-- Multiple return
-
+- Multiple return 
 ```python
 def multiple_return() -> Union[str, bool]:
     return 'done', True
 ```
+
 
 ```python
 from typing import Any
@@ -233,32 +215,26 @@ def write_to_file(filename: str, data: str) -> Any:
         print(Error)
         return Error
 ```
-
 ---
-
-# Iteration
-
+# Iteration 
 ## Bad Code  
-
 ```python
 def range_len_pattern():
     a = [1, 2, 3]
     for i in range(len(a)):
         v = a[i]
 ```
-
-## Professional Code
-
-```python
+        
+## Professional Code      
+```python        
 def iterate_on_items():
     a = [1, 2, 3]
     for item in a:
         v = item
 ```
 
-### if you still need the indexes to use
-
-```python
+### if you still need the indexes to use 
+```python        
 def use_enumerate():
     a = [1, 2, 3]
     for index, value in enumerate(a):
@@ -268,9 +244,7 @@ def use_enumerate():
 ```
 
 ### if you want to use `i` as a syncronizing varialbe to get corresponding items
-
-- Noob
-
+- Noob 
 ```python
 def use_enumerate():
     a = [1, 2, 3]
@@ -279,9 +253,7 @@ def use_enumerate():
         aValue = a[i]
         bValue = b[i]
 ```
-
 - Professional code use `zip(list, list)`
-
 ```python
 def use_enumerate():
     a = [1, 2, 3]
@@ -289,9 +261,7 @@ def use_enumerate():
     for aValue, bValue in zip(a, b):
         pass
 ```
-
 - if you still need the index use `enumerate(zip(list, list))`
-
 ```python
 def use_enumerate():
     a = [1, 2, 3]
@@ -300,55 +270,39 @@ def use_enumerate():
         pass
 
 ```
-
-# looping over the dictionary keys
-
-## Bad Code
-
+# looping over the dictionary keys 
+## Bad Code 
 ```python
 def for_key_in_dict_keys():
     d = {'a': 1, 'b': 2, 'c': 3}
     for key in d.keys(): 
         pass
 ```
-
 ## Professional Code
-
 - the default iterate on the key
-
 ```python
 def for_key_in_dict_keys():
     d = {'a': 1, 'b': 2, 'c': 3}
     for key in d:
         pass
 ```
-
 ---
-
-# Tuple unpacking
-
-## Bad Code
-
-```python
+# Tuple unpacking 
+## Bad Code 
+```python 
 mytuple = (1, 2)
 x = mytuple[0]
 y = mytuple[1]
 ```
-
-## Professional Code
-
+## Professional Code 
 ```python
 mytuple = (1, 2)
 x, y = mytuple
 ```
-
 ---
-
-# index counter variable
-
+# index counter variable 
 ## Bad Code
-
-```python
+```python 
 l = [1, 2, 3]
 i = 0
 for i in l:
@@ -357,19 +311,14 @@ for i in l:
 ```
 
 ## Professional Code
-
-```python
+```python 
 l = [1, 2, 3]
 for index, value in enumerate(l):
     pass
 ```
-
 ---
-
 # using `time.time` to time
-
-## Bad Code
-
+## Bad Code 
 ```python
 def execution_time(func: Callable):
     start = time.time()
@@ -380,7 +329,6 @@ execution_time(do_something)
 ```
 
 ## Professional Code
-
 ```python
 def real_execution_time(func: Callable):
     start = time.perf_counter()
@@ -392,52 +340,35 @@ def real_execution_time(func: Callable):
 
 real_execution_time(so_something)
 ```
-
 ---
-
 # Using `shell=True` in subprocess module
-
-## Bad Code
-
+## Bad Code 
 ```python
     import subprocess
     result = subprocess.run(['ls -l'], capture_output=True, shell=True)
     print(result.stdout.decode('utf-8'))
 ```
-
 - `shell=True` is a source of a lot of security problems
-- people did this to add command arguments like `-l` but you can add the command and it's arguments in a list
-
-## Professional Code
-
-```python
+- people did this to add command arguments like `-l` but you can add the command and it's arguments in a list 
+## Professional Code 
+```python 
 import subprocess
 result = subprocess.run(['ls', '-l'], capture_output=True)
 print(result.stdout.decode('utf-8'))
 ```
-
----
-
-# Using `from module import *`
-
-## Bad Code
-
-```python
+--- 
+# Using `from module import *` 
+## Bad Code 
+```python 
 from requests import *
 ```
-
-- it litters your namespace with variables, Just import the things you actually need
-
-## Professional Code
-
-```python
+- it litters your namespace with variables, Just import the things you actually need 
+## Professional Code 
+```python 
 from requests import get, post
 ```
-
 # pep8
-
-## Bad Code
-
+## Bad Code 
 ```python
 def not_following_pep8():
     x = (1, 2)
@@ -447,9 +378,7 @@ def not_following_pep8():
     def func(x = 5):
         pass
 ```
-
 ## Professional Code
-
 ```python
 def following_pep8():
     x = 1, 2
@@ -460,6 +389,6 @@ def following_pep8():
         pass
 ```
 
-# Using Python2
-
+# Using Python2 
 - use python3 instead
+
