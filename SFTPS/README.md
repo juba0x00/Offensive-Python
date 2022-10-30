@@ -18,5 +18,8 @@ snakeviz profiling.prof
 
 ```bash 
 snakeviz profiling_threading.prof
-
 ```
+
+# passing output to nmap 
+
+![nmap](sftps_nmap.png)
