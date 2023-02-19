@@ -8,3 +8,4 @@
 - Python for Hackers by [Joas Antonio](https://www.linkedin.com/in/joas-antonio-dos-santos/)
 - keylogger inspired by [david bombal](https://github.com/davidbombal/python-keylogger/blob/main/keylogger.py)
 - CnC-Telegram inspired by [Petr Bergmann](https://github.com/bergmpet/cnc-telegram)
+- [100 readteam projects](https://github.com/kurogai/100-redteam-projects)

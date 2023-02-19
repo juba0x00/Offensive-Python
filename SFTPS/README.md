@@ -2,7 +2,8 @@
 
 # I wrote this script without using `threading`, after testing I found it takes about 9 seconds, So I added `threading` to make it faster 
 
-## Without Threading 
+## Without Threading
+
 ![no-threading](no-threading.png)
 
 ### [Profiling file](profiling.prof)
